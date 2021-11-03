@@ -31,6 +31,7 @@ var rootCmd = &cobra.Command{
 	Use:   "vinegere-cypher",
 	Short: "Simple Vinegere cypher demo",
 	Long: `Perform a simple Vinegere cypher substitution of ASCII alphabetical characters. 
+Ignores special ASCII characters, and non ASCII characters.
 	
 Usage:
 vinegere enc --key | k <key> <message>
@@ -39,7 +40,7 @@ vinegere -h | --help
 vinegere -v | --version
 
 Required options:
--k --key <key> The key to use to encrypt/decrypt
+-k --key <key> The key to use to encrypt/decrypt: a string of ASCII alphabetical characters
 
 Options:
 -h --help Shows this screen
