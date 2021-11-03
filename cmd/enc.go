@@ -18,6 +18,7 @@ package cmd
 import (
 	"fmt"
 
+	"github.com/nevilleomangi/vigenere-cypher/vigenere"
 	"github.com/spf13/cobra"
 )
 
@@ -31,7 +32,7 @@ var (
 	vinegere enc -k <key> <message>
 	`,
 		Run: func(cmd *cobra.Command, args []string) {
-			fmt.Printf("c1ph3r\n")
+			fmt.Printf("%s\n", vigenere.Encrypt(keyFlagValue, args[0]))
 		},
 	}
 	keyFlagValue string
