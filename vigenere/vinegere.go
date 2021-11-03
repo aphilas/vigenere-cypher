@@ -1,4 +1,4 @@
-package main
+package vigenere
 
 import (
 	"strings"
@@ -25,8 +25,11 @@ func UpperCaseASCII(char rune) bool {
 	return false
 }
 
-// Clamps a value between min and max - assumes min > 0, max > 0
+// Clamps a char code between min and max
 func Clamp(min, max, c rune) rune {
+	if c < min {
+		return ((c-1)%(max-min+1) + min)
+	}
 	return min + (c-min)%(max-min+1)
 }
 
@@ -35,6 +38,16 @@ func AddASCII(char, addend rune) rune {
 		return Clamp(a, z, char+(addend-a))
 	} else if UpperCaseASCII(char) {
 		return Clamp(A, Z, char+(addend-A))
+	}
+
+	return char
+}
+
+func SubtractASCII(char, addend rune) rune {
+	if LowerCaseASCII(char) {
+		return Clamp(a, z, char-(addend-a))
+	} else if UpperCaseASCII(char) {
+		return Clamp(A, Z, char-(addend-A))
 	}
 
 	return char
@@ -61,6 +74,9 @@ func Encrypt(key, message string) string {
 	return cipher.String()
 }
 
+// Decrypts a Vinegere cypher
+// of a string of ASCII characters between a-z or A-Z
+// using the given key
 func Decrypt(key, cipher string) string {
 	var message strings.Builder
 	i := 0
@@ -68,7 +84,7 @@ func Decrypt(key, cipher string) string {
 	for _, char := range cipher {
 		k := key[i%(len(key))]
 		if LowerCaseASCII(char) || UpperCaseASCII(char) {
-			message.WriteRune(AddASCII(char, rune(-k)))
+			message.WriteRune(SubtractASCII(char, rune(k)))
 			i += 1
 			continue
 		}

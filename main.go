@@ -15,19 +15,8 @@ limitations under the License.
 */
 package main
 
-import "fmt"
-
-// import "github.com/nevilleomangi/vigenere-cypher/cmd"
+import "github.com/nevilleomangi/vigenere-cypher/cmd"
 
 func main() {
-	// cmd.Execute()
-
-	m := "lorem ipsum dolor sit amet"
-	k := "ugali"
-
-	fmt.Println(m)
-	c := Encrypt(k, m)
-	fmt.Println(c)
-	d := Decrypt(k, c)
-	fmt.Println(d)
+	cmd.Execute()
 }
